@@ -313,7 +313,7 @@ func (d *partialDoc) get(key string) (*lazyNode, error) {
 func (d *partialDoc) remove(key string) error {
 	_, ok := (*d)[key]
 	if !ok {
-		return fmt.Errorf("Unable to remove nonexistent key: %s", key)
+		return nil //fmt.Errorf("Unable to remove nonexistent key: %s", key)
 	}
 
 	delete(*d, key)
@@ -398,7 +398,7 @@ func (d *partialArray) remove(key string) error {
 	cur := *d
 
 	if idx >= len(cur) {
-		return fmt.Errorf("Unable to remove invalid index: %d", idx)
+		return nil //fmt.Errorf("Unable to remove invalid index: %d", idx)
 	}
 
 	ary := make([]*lazyNode, len(cur)-1)
@@ -429,7 +429,7 @@ func (p Patch) remove(doc *container, op operation) error {
 	con, key := findObject(doc, path)
 
 	if con == nil {
-		return fmt.Errorf("jsonpatch remove operation does not apply: doc is missing path: %s", path)
+		return nil //fmt.Errorf("jsonpatch remove operation does not apply: doc is missing path: %s", path)
 	}
 
 	return con.remove(key)
